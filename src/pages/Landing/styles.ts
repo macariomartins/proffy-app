@@ -1,16 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-
-export const Container = styled.View`
-    flex: 1;
-    background-color: #8257e5;
-    justify-content: center;
-    padding: 40px;
-`;
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Banner = styled.Image`
   width: 100%;
-  resize-mode: contain;
 `;
 
 export const Title = styled.Text`
@@ -31,7 +24,7 @@ export const ButtonsContainer = styled.View`
   margin-top: 40px;
 `;
 
-export const StudyButton = styled.TouchableOpacity`
+export const StudyButton = styled(RectButton)`
   height: 110px;
   width: 48%;
   background: #9871f5;
@@ -40,7 +33,7 @@ export const StudyButton = styled.TouchableOpacity`
   justify-content: space-between;
 `;
 
-export const GiveClassesButton = styled.TouchableOpacity`
+export const GiveClassesButton = styled(RectButton)`
   height: 110px;
   width: 48%;
   background: #04d361;
