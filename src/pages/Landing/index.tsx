@@ -2,8 +2,8 @@ import React from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import Container from '../components/Container';
 import {
+  Container,
   Banner,
   Title,
   Bold,
@@ -26,6 +26,10 @@ function Landing() {
     navigate('GiveClasses');
   }
 
+  function handleNavigationToStudyPages() {
+    navigate('Study');
+  }
+
   return (
     <Container>
       <Banner source={landingImg} resizeMode="contain" />
@@ -39,7 +43,7 @@ function Landing() {
       <ButtonsContainer>
         <StudyButton>
           <Image source={studyIcon} />
-          <ButtonText>
+          <ButtonText onPress={handleNavigationToStudyPages}>
             Estudar
           </ButtonText>
         </StudyButton>
