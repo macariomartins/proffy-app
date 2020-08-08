@@ -1,14 +1,28 @@
 import React from 'react';
 
 import PageHeader from '../../components/PageHeader';
+import TeacherItem from '../../components/TeacherItem';
+import { Wrapper, TeacherCollection } from '../../components/TeacherItem/styles';
 
-import { Container } from './styles'
 
 function Favorites() {
   return (
-    <Container>
+    <Wrapper>
       <PageHeader title="Meus proffys favoritos" />
-    </Container>
+
+      <TeacherCollection
+        contentContainerStyle={{
+          paddingBottom: 16,
+          paddingHorizontal: 16
+        }}
+      >
+        <TeacherItem favorite={true} />
+        <TeacherItem favorite={true} />
+        <TeacherItem favorite={true} />
+        <TeacherItem favorite={true} />
+        <TeacherItem favorite={true} />
+      </TeacherCollection>
+    </Wrapper>
   );
 }
 

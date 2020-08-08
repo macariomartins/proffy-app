@@ -1,14 +1,27 @@
 import React from 'react';
 
 import PageHeader from '../../components/PageHeader';
-
-import { Container } from './styles';
+import TeacherItem from '../../components/TeacherItem';
+import { Wrapper, TeacherCollection } from '../../components/TeacherItem/styles';
 
 function TeacherList() {
   return (
-    <Container>
+    <Wrapper>
       <PageHeader title="Proffys disponíveis" />
-    </Container>
+
+      <TeacherCollection
+        contentContainerStyle={{
+          paddingBottom: 16,
+          paddingHorizontal: 16
+        }}
+      >
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+      </TeacherCollection>
+    </Wrapper>
   );
 }
 
