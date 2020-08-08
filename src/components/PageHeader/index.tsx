@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
   Container,
   TopBar,
+  Header,
   PageTitle,
   GoBackButton
 } from './styles';
@@ -14,9 +15,11 @@ import backIcon from '../../assets/images/icons/back.png';
 
 interface PageHeaderProps {
   title: string;
+  headerRight?: ReactNode;
+  children?: any;
 }
 
-const PageHeader = ({ title }: PageHeaderProps) => {
+const PageHeader = ({ title, children, headerRight }: PageHeaderProps) => {
   const { navigate } = useNavigation();
 
   function handleGoBack() {
@@ -33,9 +36,15 @@ const PageHeader = ({ title }: PageHeaderProps) => {
         <Image source={logoImg} resizeMode="contain" />
       </TopBar>
 
-      <PageTitle>
-        {title}
-      </PageTitle>
+      <Header>
+        <PageTitle>
+          {title}
+        </PageTitle>
+
+        {headerRight}
+      </Header>
+
+      {children}
     </Container>
   )
 }
