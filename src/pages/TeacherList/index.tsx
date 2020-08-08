@@ -2,6 +2,7 @@ import React, { useState, FormEvent, useEffect } from 'react';
 
 import { Feather } from '@expo/vector-icons';
 import { Picker } from '@react-native-community/picker';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '../../services/api';
 
@@ -31,7 +32,8 @@ function TeacherList() {
   const [week_day, setWeekDay] = useState('-1');
   const [time, setTime] = useState('');
 
-  const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [favorites, setFavorites] = useState<Number[]>([]);
 
   async function searchTeachers() {
     const response = await api.get('classes', {
@@ -42,9 +44,20 @@ function TeacherList() {
       }
     });
 
-    console.log(response.data);
-
     setTeachers(response.data);
+  }
+
+  function loadFavoriteTeachers() {
+    AsyncStorage.getItem('favorites').then(response => {
+      if (response) {
+        const favoritedTeachers = JSON.parse(response);
+        const favoritedTeachersIds = favoritedTeachers.map((teacher: Teacher) => {
+          return teacher.id
+        });
+
+        setFavorites(favoritedTeachersIds);
+      }
+    });
   }
 
   function hangleToggleFilters() {
@@ -53,6 +66,8 @@ function TeacherList() {
 
   function handleFilterSubmit() {
     searchTeachers();
+    loadFavoriteTeachers();
+    setFiltersAreVisible(false);
   }
 
   function convertTextToTime(text: string) {
@@ -146,7 +161,15 @@ function TeacherList() {
           paddingHorizontal: 16
         }}
       >
-        {teachers.map((teacher: Teacher) => (<TeacherItem teacher={teacher} />))}
+        {
+          teachers.map((teacher: Teacher, index) => (
+            <TeacherItem
+              key={teacher.id}
+              teacher={teacher}
+              favorite={favorites.includes(teacher.id)}
+            />
+          ))
+        }
       </TeacherCollection>
     </Wrapper>
   );
