@@ -8,7 +8,7 @@ export const Wrapper = styled.View`
 `;
 
 export const TeacherCollection = styled(ScrollView)`
-  margin-top: -60px;
+  margin-top: -40px;
 `;
 
 export const Container = styled.View`

@@ -23,10 +23,12 @@ function Landing() {
   const { navigate } = useNavigation();
 
   function handleNavigationToGiveClassesPage() {
+    console.log('Navegar para GiveClasses');
     navigate('GiveClasses');
   }
 
   function handleNavigationToStudyPages() {
+    console.log('Navegar para study');
     navigate('Study');
   }
 
@@ -41,16 +43,16 @@ function Landing() {
       </Title>
 
       <ButtonsContainer>
-        <StudyButton>
+        <StudyButton onPress={handleNavigationToStudyPages}>
           <Image source={studyIcon} />
-          <ButtonText onPress={handleNavigationToStudyPages}>
+          <ButtonText>
             Estudar
           </ButtonText>
         </StudyButton>
 
-        <GiveClassesButton>
+        <GiveClassesButton onPress={handleNavigationToGiveClassesPage}>
           <Image source={giveClassesIcon} />
-          <ButtonText onPress={handleNavigationToGiveClassesPage}>
+          <ButtonText>
             Dar aulas
           </ButtonText>
         </GiveClassesButton>
