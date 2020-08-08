@@ -1,20 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
 
+import PageHeader from '../../components/PageHeader';
 
-/** styled-components */
-import styled from 'styled-components/native';
-
-const Container = styled.View`
-  flex: 1;
-  background-color: #f0f0f7;
-`;
-/** styled-components */
-
+import { Container } from './styles'
 
 function Favorites() {
   return (
-    <Container />
+    <Container>
+      <PageHeader title="Meus proffys favoritos" />
+    </Container>
   );
 }
 
