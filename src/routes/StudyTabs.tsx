@@ -42,7 +42,8 @@ function StudyTabs() {
         inactiveBackgroundColor: '#fafafc',
         activeBackgroundColor: '#ebebf5',
         inactiveTintColor: '#c1bccc',
-        activeTintColor: '#32264d'
+        activeTintColor: '#32264d',
+        keyboardHidesTabBar: true
       }}
     >
       <Screen

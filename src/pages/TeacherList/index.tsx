@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 
 import { Feather } from '@expo/vector-icons';
 import { Picker } from '@react-native-community/picker';
 
+import api from '../../services/api';
+
 import PageHeader from '../../components/PageHeader';
-import TeacherItem from '../../components/TeacherItem';
+import TeacherItem, { Teacher } from '../../components/TeacherItem';
 
 import {
   Wrapper,
@@ -23,13 +25,60 @@ import {
   SubmitButtonText
 } from './styles';
 
-
 function TeacherList() {
   const [filtersAreVisible, setFiltersAreVisible] = useState(false);
+  const [subject, setSubject] = useState('');
+  const [week_day, setWeekDay] = useState('-1');
+  const [time, setTime] = useState('');
+
+  const [teachers, setTeachers] = useState([]);
+
+  async function searchTeachers() {
+    const response = await api.get('classes', {
+      params: {
+        subject,
+        week_day,
+        time
+      }
+    });
+
+    console.log(response.data);
+
+    setTeachers(response.data);
+  }
 
   function hangleToggleFilters() {
     setFiltersAreVisible(!filtersAreVisible);
   }
+
+  function handleFilterSubmit() {
+    searchTeachers();
+  }
+
+  function convertTextToTime(text: string) {
+    // const onlyNumbers = text
+    //   .replace(/\D/g, '')
+    //   .substr(0, 4);
+
+    // const remainingSpace = 4 - onlyNumbers.length;
+    // let time = onlyNumbers;
+
+    // for (let emptyPosition = 1; emptyPosition <= remainingSpace; emptyPosition++)
+    //   time += '0';
+
+    // return time
+    //   .split('')
+    //   .map((number, index) => {
+    //     if (index === 2)
+    //       return `:${number}`;
+    //   })
+    //   .join();
+    return text;
+  }
+
+  useEffect(() => {
+    searchTeachers();
+  }, []);
 
   return (
     <Wrapper>
@@ -48,13 +97,15 @@ function TeacherList() {
               <Input
                 placeholder='Matéria'
                 placeholderTextColor='#c1bccc'
+                value={subject}
+                onChangeText={text => setSubject(text)}
               />
 
               <InputGroup>
                 <InputBlock>
                   <Label>Dia da semana</Label>
                   <Select>
-                    <Picker>
+                    <Picker selectedValue={week_day} onValueChange={value => setWeekDay(value)}>
                       <Picker.Item value="0" label="Domingo" />
                       <Picker.Item value="1" label="Segunda-feira" />
                       <Picker.Item value="2" label="Terça-feira" />
@@ -71,11 +122,15 @@ function TeacherList() {
                   <Input
                     placeholder='Hora'
                     placeholderTextColor='#c1bccc'
+                    value={time}
+                    onChangeText={text => {
+                      setTime(convertTextToTime(text))
+                    }}
                   />
                 </InputBlock>
               </InputGroup>
 
-              <SubmitButton>
+              <SubmitButton onPress={handleFilterSubmit}>
                 <SubmitButtonText>
                   Filtrar
                 </SubmitButtonText>
@@ -91,11 +146,7 @@ function TeacherList() {
           paddingHorizontal: 16
         }}
       >
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers.map((teacher: Teacher) => (<TeacherItem teacher={teacher} />))}
       </TeacherCollection>
     </Wrapper>
   );

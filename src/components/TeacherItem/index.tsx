@@ -23,41 +23,46 @@ import {
   ContactButtonText,
 } from './styles';
 
+
+export interface Teacher {
+  id: number;
+  avatar: string;
+  bio: string;
+  cost: number
+  name: string;
+  subject: string;
+  whatsapp: string;
+}
+
 interface TeacherItemProps {
+  teacher: Teacher;
   favorite?: boolean;
 }
 
-const TeacherItem = ({ favorite }: TeacherItemProps) => {
+const TeacherItem = ({ teacher, favorite }: TeacherItemProps) => {
   return (
     <Container>
       <Profile>
-        <Avatar
-          source={{
-            uri: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
-          }}
-        />
+        <Avatar source={{ uri: teacher.avatar }} />
         <Info>
           <Name>
-            John Doe
+            {teacher.name}
           </Name>
           <Subject>
-            Chemestry
+            {teacher.subject}
           </Subject>
         </Info>
       </Profile>
 
       <Bio>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Inventore modi explicabo nesciunt veniam similique esse ullam
-        maxime numquam. Aspernatur officiis reiciendis, porro assumenda
-        natus voluptatem dolores id culpa voluptatum tenetur!
+        {teacher.bio}
       </Bio>
 
       <Footer>
         <Price>
           Preço/hora {'    '}
           <PriceValue>
-            R$ 80,00
+            R$ {teacher.cost}
           </PriceValue>
         </Price>
 
