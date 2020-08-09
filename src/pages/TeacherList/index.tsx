@@ -66,7 +66,6 @@ function TeacherList() {
 
   function handleFilterSubmit() {
     searchTeachers();
-    loadFavoriteTeachers();
     setFiltersAreVisible(false);
   }
 
@@ -93,6 +92,7 @@ function TeacherList() {
 
   useEffect(() => {
     searchTeachers();
+    loadFavoriteTeachers();
   }, []);
 
   return (

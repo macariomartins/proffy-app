@@ -7,15 +7,18 @@ import { Wrapper, TeacherCollection } from '../../components/TeacherItem/styles'
 
 function Favorites() {
   const [teachers, setTeachers] = useState<Teacher[]>([]);
-  const [favorites, setFavorites] = useState<Teacher[]>([]);
+  const [favorites, setFavorites] = useState<Number[]>([]);
 
   function loadFavoriteTeachers() {
     AsyncStorage.getItem('favorites').then(response => {
       if (response) {
         const favoritedTeachers = JSON.parse(response);
+        const favoritedTeachersIds = favoritedTeachers.map((teacher: Teacher) => {
+          return teacher.id
+        });
 
-        setFavorites(favoritedTeachers);
-        setTeachers(favorites);
+        setFavorites(favoritedTeachersIds);
+        setTeachers(favoritedTeachers);
       }
     });
   }
@@ -35,7 +38,7 @@ function Favorites() {
         }}
       >
         {
-          teachers.map((teacher: Teacher, index) => (
+          teachers.map((teacher: Teacher) => (
             <TeacherItem
               key={teacher.id}
               teacher={teacher}

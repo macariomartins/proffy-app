@@ -36,12 +36,10 @@ function Landing() {
   }, []);
 
   function handleNavigationToGiveClassesPage() {
-    console.log('Navegar para GiveClasses');
     navigate('GiveClasses');
   }
 
   function handleNavigationToStudyPages() {
-    console.log('Navegar para study');
     navigate('Study');
   }
 
