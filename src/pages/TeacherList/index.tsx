@@ -120,7 +120,7 @@ function TeacherList() {
                 <InputBlock>
                   <Label>Dia da semana</Label>
                   <Select>
-                    <Picker selectedValue={week_day} onValueChange={value => setWeekDay(value)}>
+                    <Picker selectedValue={week_day} onValueChange={value => setWeekDay(value as string)}>
                       <Picker.Item value="0" label="Domingo" />
                       <Picker.Item value="1" label="Segunda-feira" />
                       <Picker.Item value="2" label="Terça-feira" />
